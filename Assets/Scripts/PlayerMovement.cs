@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private Camera camera;
     [SerializeField] private float speed;
     [SerializeField] private float MIN_X;
     [SerializeField] private float MAX_X;
@@ -11,7 +12,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float MAX_Y;
     [SerializeField] private float MIN_Z;
     [SerializeField] private float MAX_Z;
-    
+
+    private void Awake()
+    {
+        camera = FindObjectOfType<Camera>();
+    }
+
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.W))
@@ -29,6 +35,22 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector3.right * speed);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f) //Scroll up
+        {
+            camera.fieldOfView += 10;
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) //Scroll down
+        {
+            camera.fieldOfView -= 10;
+        }
+        if (camera.fieldOfView <= 10)
+        {
+            camera.fieldOfView = 10;
+        }
+        if (camera.fieldOfView >= 60)
+        {
+            camera.fieldOfView = 60;
         }
         transform.position = new Vector3(
             Mathf.Clamp(transform.position.x, MIN_X, MAX_X),
