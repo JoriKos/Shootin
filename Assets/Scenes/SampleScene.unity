@@ -847,7 +847,7 @@ MonoBehaviour:
   gizmoLength: 2000
   bulletPrefab: {fileID: 8331886621781118959, guid: 610fe12f568c77b4192670ae23edc64e,
     type: 3}
-  windChangeInterval: 2
+  windChangeInterval: 0.5
   bulletHolePrefab: {fileID: 2473973268151307033, guid: d7e162cbf9595134aa41c5e3646581a3,
     type: 3}
 --- !u!1 &970280027
@@ -1048,7 +1048,7 @@ GameObject:
   - component: {fileID: 1522052303}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1160,8 +1160,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -552.18, y: 263.96}
-  m_SizeDelta: {x: 257.65, y: 28.19}
+  m_AnchoredPosition: {x: -447.5, y: 263.96}
+  m_SizeDelta: {x: 467, y: 28.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1713516125
 MonoBehaviour:

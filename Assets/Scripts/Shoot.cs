@@ -9,11 +9,8 @@ public class Shoot : MonoBehaviour
     private Camera camera;
     private Ray rayOrigin;
     private Text windText;
-    private float windSpeed;
-    private Vector3 endGizmo;
-    private Vector3 startGizmo;
     private RaycastHit hitInfo;
-    [SerializeField] private float gizmoLength;
+    private Vector3 windSpeed;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float windChangeInterval;
     [SerializeField] private GameObject bulletHolePrefab;
@@ -23,19 +20,22 @@ public class Shoot : MonoBehaviour
     {
         windText = FindObjectOfType<Text>();
         camera = FindObjectOfType<Camera>();
-        startGizmo = transform.position;
         timer = 0;
+        windText.text = "Windspeed: X: Y: Z: ";
     }
-
+    
     private void Update()
     {
         timer += Time.deltaTime;
         if (timer > windChangeInterval)
         {
             timer = 0;
-            windSpeed = Mathf.Round(Random.Range(-1.0f, 1.0f) * 100);
+            windSpeed = new Vector3(
+                Mathf.Round(Random.Range(-1.0f, 1.0f) * 100),
+                0,
+                Mathf.Round(Random.Range(-1.0f, 1.0f) * 100));
         }
-        windText.text = "Windspeed: " + windSpeed.ToString();
+        windText.text = "Windspeed: X: " + windSpeed.x.ToString() + " Y: " + windSpeed.y.ToString() + " Z: " + windSpeed.z.ToString();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -47,18 +47,8 @@ public class Shoot : MonoBehaviour
             }
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        for (int i = 0; i < 500; i++) //Create hitscan aim gizmo
-        {
-            endGizmo = new Vector3(startGizmo.x - gizmoLength, startGizmo.y, startGizmo.z);
-            Gizmos.DrawLine(startGizmo, endGizmo);
-            startGizmo = transform.position;
-        }
-    }
     
-    public float GetWindSpeed()
+    public Vector3 GetVectorWind() //BulletPhysics.cs is not always instantiated, global wind needed rather than bullet-specific wind
     {
         return windSpeed;
     }

@@ -22,7 +22,8 @@ public class BulletPhysics : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(new Vector3(-speed, 0 + (Physics.gravity.y * 0.1f), 0.01f * shoot.GetWindSpeed()), ForceMode.Force); //Object is given force, affected by gravity and windspeed.
+        //Object is given force, affected by gravity and windspeed
+        rb.AddForce(new Vector3(-speed + shoot.GetVectorWind().x, 0 + (Physics.gravity.y * 0.1f), 0.01f * shoot.GetVectorWind().z), ForceMode.Force); //Object is given force, affected by gravity and windspeed.
     }
     
     private void OnCollisionEnter(Collision collision)
@@ -35,6 +36,11 @@ public class BulletPhysics : MonoBehaviour
                 Instantiate(bulletHolePrefab, new Vector3(hitInfo.point.x + 0.19f, hitInfo.point.y, hitInfo.point.z), Quaternion.LookRotation(hitInfo.normal));
                 Destroy(this.gameObject);
             }
+        }
+
+        if (collision.gameObject.tag == "Ground")
+        {
+            Destroy(this.gameObject);
         }
     }
 }
